@@ -1,0 +1,21 @@
+name: Patch JAR File
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  patch-jar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download JAR File
+        run: curl -o services.jar <direct_link_to_jar_file>
+      - name: Apply Patch
+        run: patch services.jar <path_to_patch_file>
+      - name: Upload Patched JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: patched-services.jar
+          path: services.jar
